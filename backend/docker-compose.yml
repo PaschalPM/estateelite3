@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  dev-db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_USER=estateelite3
+      - POSTGRES_DB=estateelite3
+    container_name: dev-db
+    networks:
+      - estateelite3
+
+  test-db:
+    image: postgres
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_PASSWORD=12345678
+      - POSTGRES_USER=estateelite3
+      - POSTGRES_DB=estateelite3
+    container_name: test-db
+    networks:
+      - estateelite3
+  
+networks:
+  estateelite3:
