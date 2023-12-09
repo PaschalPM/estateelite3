@@ -4,10 +4,10 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { RegisterUserDto, SigninUserDto } from './dto';
-import { PrismaService } from '@/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { Prisma, User } from '@prisma/client';
-import { UserService } from '@/user/user.service';
+import { UserService } from '../user/user.service';
 import { Response } from 'express';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { ACCESS_TOKEN } from './auth.constants';

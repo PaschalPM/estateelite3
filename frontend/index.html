@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Estateelite 3</h1>
+
+    <form action="">
+        <div>
+            <input type="text" name="login" placeholder="Username or email">
+        </div>
+        <div>
+            <input type="text" name="password" placeholder="password">
+        </div>
+        <div>
+            <button> Login </button>
+        </div>
+    </form>
+
+    <button id="testBtn">
+        test
+    </button> | 
+    <button id="logoutBtn">
+        logout
+    </button> 
+</body>
+
+</html>
+
+<script>
+    const form = document.forms[0]
+    const baseUrl = "http://localhost:3000/api/"
+    const testBtn = document.getElementById("testBtn")
+    const logoutBtn = document.getElementById("logoutBtn")
+
+    form.addEventListener("submit", (ev) => {
+        ev.preventDefault()
+        const login = ev.target.login.value
+        const password = ev.target.password.value
+        const body = JSON.stringify({ login, password })
+        console.log(body)
+
+        fetch(baseUrl + 'auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body,
+            credentials: "include"
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+            })
+    })
+
+    testBtn.addEventListener("click", function () {
+        fetch(baseUrl + 'auth/test', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: "include"
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+            })
+    })
+    
+    logoutBtn.addEventListener("click", function () {
+        fetch(baseUrl + 'auth/logout', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: "DELETE",
+            credentials: "include"
+        })
+            .then((res) => res.json())
+    })
+</script>

@@ -3,6 +3,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Delete,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -11,11 +12,17 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterUserDto, SigninUserDto } from './dto';
-import { Public } from './decorator';
+import { Public, User } from './decorator';
 import { UserEntity } from './entity';
 import { Response } from 'express';
-import { ApiBody, ApiCookieAuth, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiCookieAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+} from '@nestjs/swagger';
 import { ACCESS_TOKEN } from './auth.constants';
+import { User as UserType } from '@prisma/client';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
@@ -47,5 +54,10 @@ export class AuthController {
   @Delete('logout')
   async logout(@Res({ passthrough: true }) res: Response) {
     return this.authService.logout(res);
+  }
+
+  @Get('test')
+  async test(@User() user: UserType) {
+    return { message: 'Today is Saturday' };
   }
 }
